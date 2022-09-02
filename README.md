@@ -72,3 +72,15 @@ DATABASES = {
 ## 5. TODO
 
 * Enable backup uploads to S3
+* Make structure prettier
+
+## 6. Important info
+
+This is NOT thoroughly tested and I can't guarantee it will work for you.
+It has however worked for me on both a Windows 11 machine and an OpenMediaVault 6 home server.
+I made this mostly to make life easier for repetitive tasks and since it might not always be immediately obvious how to deploy a django app on docker.
+Whether you run the script or not you're free to use the files and modify them however you want to :3
+
+In any case if you find issues/have feature suggestions do publish them - I'll be more than happy to go through and add them.
+
+I'll be updating the zip file any time there's updates. It's tagged as alpha due to this right now being something I threw together in a day but I'm sure it'll be thoroughly tested soon enough as I do need it myself.
