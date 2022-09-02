@@ -16,7 +16,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev
 
-# lint
+# upgrade pip
 RUN pip install --upgrade pip
 COPY . .
 
@@ -61,12 +61,9 @@ RUN sed -i 's/\r$//g'  $APP_HOME/entrypoint.prod.sh
 RUN dos2unix $APP_HOME/entrypoint.prod.sh
 RUN chmod +x  $APP_HOME/entrypoint.prod.sh
 
+#remove dos2unix
 RUN apk del dos2unix
 RUN apk add bash
-
-#copy certificates
-#COPY ./cert.pem .
-#COPY ./priv.pem .
 
 # copy project
 COPY . $APP_HOME

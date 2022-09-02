@@ -69,3 +69,6 @@ DATABASES = {
 8. Script will copy the files into right directories and start build/run the container
 9.  Done! Now all you need to do is point your domain to your server address
 
+## 5. TODO
+
+* Enable backup uploads to S3
