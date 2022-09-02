@@ -17,6 +17,16 @@ function roe {
     fi
 }
 
+read -p "Have you already configured your .env files? (y/n):" result
+if ! [ $result == "y" ] && ! [ $result == "Y" ]
+then
+    read -p "Configure now? (y/n):" result
+    if [ $result == "y" ]
+    then
+        source bin/sh/config.sh
+    fi
+fi
+
 if ! [ -x "$(command -v docker)" ]; then
     read -p "Docker is not installed. Would you like to install it now? (y/n):" install_docker
     if [ "$install_docker" == "y" ]; then
@@ -98,6 +108,13 @@ if [ "$continue_build" == "y" ]; then
     printf "It is highly advisable to do this through a proxy.\n"
     printf "You can find instructions on how to do this here:\n"
     printf "https://github.com/beccauwu/docker-production-automated\n"
+    read -p "Remove source files? (y/n):" remove_source
+    if [ "$remove_source" == "y" ]; then
+        printf "Removing source files...\n"
+        rm -r src
+        printf "Done.\n"
+    fi
+    read -p "Press any key to exit..."
     exit 0
 else
     printf "\n"

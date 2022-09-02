@@ -1,8 +1,9 @@
 #!/bin/bash
-db_file=".db.env"
-pgadmin_file=".pgadmin.env"
-prod_file=".prod.env"
+db_file=".env/.db.env"
+pgadmin_file=".env/.pgadmin.env"
+prod_file=".env/.prod.env"
 printf "First, let's configure the database.\n\n"
+mkdir -p .env
 while true; do
     read -p "Enter desired root username (default root):" db_user
     [ -z "$db_user" ] && db_user="root"
