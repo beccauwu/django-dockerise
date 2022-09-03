@@ -1,9 +1,8 @@
 #!/bin/bash
-db_file=".env/.db.env"
-pgadmin_file=".env/.pgadmin.env"
-prod_file=".env/.prod.env"
+db_file=".db.env"
+pgadmin_file=".pgadmin.env"
+prod_file=".prod.env"
 printf "First, let's configure the database.\n\n"
-mkdir -p .env
 while true; do
     read -p "Enter desired root username (default root):" db_user
     [ -z "$db_user" ] && db_user="root"
@@ -65,6 +64,7 @@ while true; do
     continue
 done
 cat <<EOF > $prod_file
+DJANGO_TRUSTED_ORIGINS=https://$prod_domain
 SQL_USER=$db_user
 SQL_PASSWORD=$db_password
 SQL_DATABASE=$db_name
@@ -72,7 +72,6 @@ SQL_HOST=db
 SQL_PORT=5432
 DATABASE=postgres
 DJANGO_ALLOWED_HOSTS=$prod_domain
-DJANGO_TRUSTED_ORIGINS=https://$prod_domain
 EOF
 
 printf "Production environment configuration complete.\n\n"

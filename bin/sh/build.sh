@@ -17,16 +17,6 @@ function roe {
     fi
 }
 
-read -p "Have you already configured your .env files? (y/n):" result
-if ! [ $result == "y" ] && ! [ $result == "Y" ]
-then
-    read -p "Configure now? (y/n):" result
-    if [ $result == "y" ]
-    then
-        source bin/sh/config.sh
-    fi
-fi
-
 if ! [ -x "$(command -v docker)" ]; then
     read -p "Docker is not installed. Would you like to install it now? (y/n):" install_docker
     if [ "$install_docker" == "y" ]; then
@@ -104,20 +94,18 @@ if [ "$continue_build" == "y" ]; then
     printf "Building the production environment...\n"
     docker compose -f docker-compose.prod.yml up -d --build
     printf "Done.\n"
+    read -r firstline<.env/.prod.env
+    echo "Your app is now available at:"
+    echo $firstline | cut -d "=" -f 2
+    printf "\n"
     printf "Now please forward your domain to this server in your DNS settings\n"
     printf "It is highly advisable to do this through a proxy.\n"
     printf "You can find instructions on how to do this here:\n"
-    printf "https://github.com/beccauwu/docker-production-automated\n"
-    read -p "Remove source files? (y/n):" remove_source
-    if [ "$remove_source" == "y" ]; then
-        printf "Removing source files...\n"
-        rm -r src
-        printf "Done.\n"
-    fi
-    read -p "Press any key to exit..."
+    printf "https://github.com/beccauwu/django-dockerise\n"
     exit 0
 else
     printf "\n"
     printf "Build cancelled.\n\n"
     exit 1
 fi
+ 
