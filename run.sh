@@ -9,22 +9,30 @@ read num
 case $num in
     1)
         echo "running build..."
-        source bin/sh/build.sh
+        . bin/sh/build.sh
         ;;
     2)
         echo "running rebuild..."
-        source bin/sh/rebuild.sh
+        . bin/sh/rebuild.sh
         ;;
     3)
         echo "running config..."
-        source bin/sh/config.sh
+        python bin/py/config.py && printf "Production environment configuration complete.\n\n"
+        read -p "Do you want to build the production environment now? (y/n):" build_now
+        if [ "$build_now" == "y" ] || [ "$build_now" == "Y" ]
+        then
+            . bin/sh/build.sh
+        else
+            printf "\n"
+            printf "Build the production environment by running run.sh again and choosing build\n"
+        fi
         ;;
     4)
         echo "running backup database..."
-        source bin/sh/db_backup.sh
+        . bin/sh/db_backup.sh
         ;;
     5)
         echo "running restore database..."
-        source bin/sh/db_restore.sh
+        . bin/sh/db_restore.sh
         ;;
 esac

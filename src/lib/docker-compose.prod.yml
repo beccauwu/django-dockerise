@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build: 
-      context: ./app
+      context: ./$app_folder
       dockerfile: Dockerfile.prod
     command: gunicorn shop.wsgi:application --bind 0.0.0.0:8000
     volumes:
@@ -24,18 +24,6 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - .env/.db.env
-  pgadmin:
-    image: dpage/pgadmin4
-    ports:
-      - 5050:5050
-    depends_on:
-      - db
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin/data/
-    env_file:
-      - .env/.pgadmin.env
-    links: 
-      - "db:pgsql-server"
   nginx:
     build: ./nginx
     volumes:
@@ -50,6 +38,5 @@ services:
 
 volumes:
   postgres_data:
-  pgadmin_data:
   static_volume:
   media_volume:
